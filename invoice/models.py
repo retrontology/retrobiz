@@ -39,29 +39,6 @@ class Client(models.Model):
     def __str__(self):
         return self.name
 
-class Payment(models.Model):
-    amount = models.IntegerField(
-        blank=False,
-        null=False,
-    )
-    transaction_id = models.CharField(
-        blank=False,
-        null=False,
-        max_length=128,
-    )
-    service = models.CharField(
-        choices=PAYMENT_CHOICES,
-        blank=False,
-        null=False,
-        max_length=128,
-    )
-    timestamp = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-        blank=False,
-        null=False,
-    )
-
 class Invoice(models.Model):
     number = models.AutoField(
         primary_key=True,
@@ -88,8 +65,31 @@ class Invoice(models.Model):
     due_date = models.DateField(
         null=True
     )
-    payment = models.ForeignKey(
-        to=Payment,
+
+class Payment(models.Model):
+    amount = models.IntegerField(
+        blank=False,
+        null=False,
+    )
+    transaction_id = models.CharField(
+        blank=False,
+        null=False,
+        max_length=128,
+    )
+    service = models.CharField(
+        choices=PAYMENT_CHOICES,
+        blank=False,
+        null=False,
+        max_length=128,
+    )
+    timestamp = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        blank=False,
+        null=False,
+    )
+    invoice = models.ForeignKey(
+        to=Invoice,
         blank=True,
         null=True,
         on_delete=models.RESTRICT,
