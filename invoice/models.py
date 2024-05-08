@@ -1,20 +1,65 @@
 from django.db import models
 
-class Contact(models.Model):
-    first_name = models.CharField(max_length=32)
-    middle_name = models.CharField(max_length=32)
-    last_name = models.CharField(max_length=32)
-    title = models.CharField(max_length=32)
-    email = models.EmailField()
-    phone = models.CharField(max_length=15)
+PAYMENT_CHOICES = [
+    ("VENMO", "Venmo"),
+    ("PAYPAL", "PayPal"),
+    ("ZELLE", "Zelle"),
+    ("CHECK", "Check"),
+]
 
 class Client(models.Model):
-    name = models.CharField(max_length=200)
-    address_line1 = models.CharField(max_length=200)
-    address_line2 = models.CharField(max_length=200)
-    point_of_contact = models.ForeignKey(
-        to=Contact,
-        on_delete=models.PROTECT,
+    name = models.CharField(
+        max_length=64,
+        blank=False,
+        null=False,
+    )
+    address_line1 = models.CharField(
+        max_length=64,
+        blank=False,
+        null=False,
+    )
+    address_line2 = models.CharField(
+        max_length=64,
+        blank=True,
+        null=False,
+    )
+    person_of_contact = models.CharField(
+        max_length=64,
+        blank=True,
+        null=False,
+    )
+    phone = models.CharField(
+        max_length=24,
+        blank=True,
+    )
+    email = models.EmailField(
+        blank=True
+    )
+
+    def __str__(self):
+        return self.name
+
+class Payment(models.Model):
+    amount = models.IntegerField(
+        blank=False,
+        null=False,
+    )
+    transaction_id = models.CharField(
+        blank=False,
+        null=False,
+        max_length=128,
+    )
+    service = models.CharField(
+        choices=PAYMENT_CHOICES,
+        blank=False,
+        null=False,
+        max_length=128,
+    )
+    timestamp = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        blank=False,
+        null=False,
     )
 
 class Invoice(models.Model):
@@ -24,10 +69,28 @@ class Invoice(models.Model):
         null=False,
         unique=True,
     )
+    total = models.IntegerField(
+        default=0,
+        null=False,
+        blank=False
+    )
     client = models.ForeignKey(
         to=Client,
         blank=False,
         null=False,
-        on_delete=models.PROTECT,
+        on_delete=models.RESTRICT,
     )
-    pub_date = models.DateTimeField("date published")
+    created_date = models.DateTimeField(
+        auto_now_add=True,
+        blank=False,
+        null=False,
+    )
+    due_date = models.DateField(
+        null=True
+    )
+    payment = models.ForeignKey(
+        to=Payment,
+        blank=True,
+        null=True,
+        on_delete=models.RESTRICT,
+    )
