@@ -2,4 +2,4 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register([Payment, Client, Invoice])
+admin.site.register(Invoice)
