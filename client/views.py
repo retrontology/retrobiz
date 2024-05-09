@@ -20,9 +20,9 @@ def new(request):
         phone=request.POST["phone"],
         email=request.POST["email"],
     )
-    return HttpResponseRedirect(reverse("client:create"))
+    return HttpResponseRedirect(reverse("client:view", args=(client.id,)))
 
 def view(request, client_id):
-    client = Client.objects.get(id=client_id)
+    client = get_object_or_404(Client, id=client_id)
     context = {"client": client}
     return render(request, "client/view.html", context)

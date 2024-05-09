@@ -1,0 +1,9 @@
+{% if invoices %}
+    <ul>
+    {% for invoice in invoices %}
+        <li><a href="/invoice/view/{{ invoice.number }}">{{ invoice.number }}: {{ invoice.client.name }} - {{ invoice.total }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No invoices are available.</p>
+{% endif %}
