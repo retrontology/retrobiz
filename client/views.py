@@ -1,4 +1,5 @@
 from .models import Client
+from invoice.utils import *
 from invoice.models import Invoice
 from payment.models import Payment
 from django.http import HttpResponse, HttpResponseRedirect
@@ -27,11 +28,14 @@ def new(request):
 def view(request, client_id):
     client = get_object_or_404(Client, id=client_id)
     invoices = Invoice.objects.filter(client=client)
-    billed = sum(invoice.total for invoice in invoices)
+    billed = 0
     paid = 0
     for invoice in invoices:
+        invoice.total = get_total(get_items(invoice))
+        billed = billed + invoice.total
         invoice.payments = Payment.objects.filter(invoice=invoice)
         paid = paid + sum(payment.amount for payment in invoice.payments)
+    
     owed = billed - paid
     context = {
         "client": client,
