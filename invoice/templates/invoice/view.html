@@ -3,7 +3,7 @@
 <label for="client">Client</label>
 <a href="{% url 'client:view' invoice.client.id %}" id="client" name="client">{{ invoice.client.name }}</a><br>
 <label for="billed">Total Amount Billed</label>
-<a id="billed" name="billed">${{ invoice.total }}</a><br>
+<a id="billed" name="billed">${{ total }}</a><br>
 <label for="paid">Total Amount Paid</label>
 <a id="paid" name="paid">${{ paid }}</a><br>
 <label for="owed">Total Amount Owed</label>
@@ -12,6 +12,28 @@
 <a id="created_date" name="created_date">{{ invoice.created_date }}</a><br>
 <label for="due_date">Due Date</label>
 <a id="due_date" name="due_date">{{ invoice.due_date }}</a><br>
+{% if items %}
+    <br>
+    <a>Items</a>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Description</th>
+            <th>Rate</th>
+            <th>Hours</th>
+            <th>Total</th>
+        </tr>
+    {% for item in items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.rate }}</td>
+            <td>{{ item.hours }}</td>
+            <td>{{ item.total }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
 {% if payments %}
     <br>
     <a>Payments</a>

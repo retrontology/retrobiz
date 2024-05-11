@@ -8,11 +8,6 @@ class Invoice(models.Model):
         null=False,
         unique=True,
     )
-    total = models.IntegerField(
-        default=0,
-        null=False,
-        blank=False
-    )
     client = models.ForeignKey(
         to=Client,
         blank=False,
@@ -26,4 +21,24 @@ class Invoice(models.Model):
     )
     due_date = models.DateField(
         null=True
+    )
+
+class Item(models.Model):
+    invoice = models.ForeignKey(
+        to=Invoice,
+        blank=False,
+        null=False,
+        on_delete=models.RESTRICT,
+    )
+    description = models.CharField(
+        max_length=128,
+        blank=False,
+        null=False,
+    )
+    hours = models.SmallIntegerField()
+    rate = models.DecimalField(
+        max_digits=16,
+        decimal_places=2,
+        blank=False,
+        null=False,
     )

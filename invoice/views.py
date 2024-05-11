@@ -1,4 +1,4 @@
-from .models import Invoice, Client
+from .models import Invoice, Client, Item
 from payment.models import Payment
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -25,11 +25,18 @@ def new(request):
 
 def view(request, invoice_number):
     invoice = get_object_or_404(Invoice, number=invoice_number)
+    items = Item.objects.filter(invoice=invoice)
+    total = 0
+    for item in items:
+        item.total = item.hours * item.rate
+        total = total + item.total
     payments = Payment.objects.filter(invoice=invoice)
     paid = sum(payment.amount for payment in payments)
-    owed = invoice.total - paid
+    owed = total - paid
     context = {
         "invoice": invoice,
+        "items": items,
+        "total": total,
         "payments": payments,
         "paid": paid,
         "owed": owed,
