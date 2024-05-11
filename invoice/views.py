@@ -1,4 +1,5 @@
 from .models import Invoice, Client
+from payment.models import Payment
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -24,5 +25,13 @@ def new(request):
 
 def view(request, invoice_number):
     invoice = get_object_or_404(Invoice, number=invoice_number)
-    context = {"invoice": invoice}
+    payments = Payment.objects.filter(invoice=invoice)
+    paid = sum(payment.amount for payment in payments)
+    owed = invoice.total - paid
+    context = {
+        "invoice": invoice,
+        "payments": payments,
+        "paid": paid,
+        "owed": owed,
+    }
     return render(request, "invoice/view.html", context)

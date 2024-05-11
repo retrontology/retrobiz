@@ -1,10 +1,23 @@
 <label for="number">Invoice Number</label>
 <a id="number" name="number">{{ invoice.number }}</a><br>
 <label for="client">Client</label>
-<a id="client" name="client">{{ invoice.client }}</a><br>
-<label for="total">Total Amount</label>
-<a id="total" name="total">${{ invoice.total }}</a><br>
+<a href="{% url 'client:view' invoice.client.id %}" id="client" name="client">{{ invoice.client.name }}</a><br>
+<label for="billed">Total Amount Billed</label>
+<a id="billed" name="billed">${{ invoice.total }}</a><br>
+<label for="paid">Total Amount Paid</label>
+<a id="paid" name="paid">${{ paid }}</a><br>
+<label for="owed">Total Amount Owed</label>
+<a id="owed" name="owed">${{ owed }}</a><br>
 <label for="created_date">Date Created</label>
 <a id="created_date" name="created_date">{{ invoice.created_date }}</a><br>
 <label for="due_date">Due Date</label>
 <a id="due_date" name="due_date">{{ invoice.due_date }}</a><br>
+{% if payments %}
+    <br>
+    <a>Payments</a>
+    <ul>
+    {% for payment in payments %}
+        <li><a href="{% url 'payment:view' payment.id %}">{{ payment.id }}: {{ payment.invoice.client.name }} - {{ payment.amount }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
