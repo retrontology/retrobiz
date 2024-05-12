@@ -7,4 +7,5 @@ urlpatterns = [
     path("create", views.create, name="create"),
     path("new", views.new, name="new"),
     path("view/<int:invoice_number>", views.view, name="view"),
+    path("pdf/<int:invoice_number>", views.pdf, name="pdf"),
 ]

@@ -31,7 +31,7 @@ def view(request, client_id):
     billed = 0
     paid = 0
     for invoice in invoices:
-        invoice.total = get_total(get_items(invoice))
+        invoice.total = get_invoice_total(get_invoice_items(invoice))
         billed = billed + invoice.total
         invoice.payments = Payment.objects.filter(invoice=invoice)
         paid = paid + sum(payment.amount for payment in invoice.payments)

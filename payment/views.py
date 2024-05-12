@@ -30,6 +30,6 @@ def new(request):
 
 def view(request, payment_id):
     payment = get_object_or_404(Payment, id=payment_id)
-    payment.invoice.total = get_total(get_items(payment.invoice))
+    payment.invoice.total = get_invoice_total(get_invoice_items(payment.invoice))
     context = {"payment": payment}
     return render(request, "payment/view.html", context)
