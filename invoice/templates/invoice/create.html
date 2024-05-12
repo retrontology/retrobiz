@@ -1,3 +1,5 @@
+{% load static %}
+<script src="{% static 'invoice/items.js' %}"></script> 
 <form action="{% url 'invoice:new' %}" method="post">
     {% csrf_token %}
     <fieldset>
@@ -15,25 +17,10 @@
     <fieldset>
         <legend><h1>Items</h1></legend>
         <table id="items" name="items">
-            <tr>
-                <td>#</td>
-                <td>Description</td>
-                <td>Hours</td>
-                <td>Rate</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>
-                    <input type="text" name="item-1-description" id="item-1-description">
-                </td>
-                <td>
-                    <input type="number" name="item-1-hours" id="item-1-hours">
-                </td>
-                <td>
-                    <input type="number" name="item-1-rate" id="item-1-rate">
-                </td>
-            </tr>
         </table>
     </fieldset>
     <input type="submit" value="Submit">
 </form>
+<script>
+    let items = new ItemGrid('items')
+</script>
