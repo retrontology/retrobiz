@@ -43,3 +43,4 @@
     {% endfor %}
     </ul>
 {% endif %}
+<a href="{% url 'invoice:pdf' invoice.number %}">Generate PDF</a>
