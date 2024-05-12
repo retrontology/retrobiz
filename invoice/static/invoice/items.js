@@ -1,4 +1,5 @@
 const COLUMNS = ['#', 'Description', 'Hours', 'Rate', 'Total']
+const DEC_REGEX = /^\d+(\.\d{1,2})?$/;
 
 function ItemGrid(root) {
 	this.init(root);
@@ -12,8 +13,8 @@ ItemGrid.prototype = {
         let add_button = document.createElement("button");
         add_button.type="button";
         add_button.textContent = "Add an item";
-        add_button.table = this;
-        add_button.onclick = function(){this.table.add_row()};
+        add_button.itemgrid = this;
+        add_button.onclick = function(){this.itemgrid.add_row()};
         this.table.after(add_button);
     },
     create_header: function() {
@@ -35,6 +36,10 @@ ItemGrid.prototype = {
             let cell = document.createElement("td");
             let input = document.createElement("input");
             input.name = `item-${row_index}-${COLUMNS[i].toLowerCase()}`;
+            input.itemgrid = this;
+            if (i > 1)
+                input.onchange = function(){this.itemgrid.calc_row(row_index)};
+            cell.input = input;
             cell.appendChild(input);
             row.appendChild(cell);
         }
@@ -42,8 +47,8 @@ ItemGrid.prototype = {
         row.appendChild(total_cell);
         let del_cell = document.createElement("td");
         let del_button = document.createElement("button");
-        del_button.table = this;
-        del_button.onclick = function(){this.table.del_row(row_index)};
+        del_button.itemgrid = this;
+        del_button.onclick = function(){this.itemgrid.del_row(row_index)};
         del_button.textContent="x";
         del_cell.appendChild(del_button);
         row.appendChild(del_cell);
@@ -64,5 +69,14 @@ ItemGrid.prototype = {
             }
             row.cells[COLUMNS.length].childNodes[0].onclick = function(){this.table.del_row(i)};
         }
-    }
+    },
+    calc_row: function(index) {
+        row = this.table.rows[index];
+        hours = row.cells[2].input;
+        rate = row.cells[3].input;
+        if (DEC_REGEX.test(hours.value) && DEC_REGEX.test(rate.value))
+            row.cells[4].textContent = hours.value*rate.value;
+        else
+            row.cells[4].textContent = "";
+    },
 }
