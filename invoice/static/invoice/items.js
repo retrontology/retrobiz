@@ -11,11 +11,17 @@ ItemGrid.prototype = {
         this.create_header();
         this.add_row();
         let add_button = document.createElement("button");
+        end_div = document.createElement("div");
+        this.table.after(end_div);
         add_button.type="button";
         add_button.textContent = "Add an item";
         add_button.itemgrid = this;
         add_button.onclick = function(){this.itemgrid.add_row()};
-        this.table.after(add_button);
+        end_div.appendChild(add_button);
+        total = document.createElement("a");
+        total.id = "items-total";
+        this.total = total;
+        end_div.appendChild(total);
     },
     create_header: function() {
         this.header = document.createElement("tr");
@@ -44,6 +50,7 @@ ItemGrid.prototype = {
             row.appendChild(cell);
         }
         let total_cell = document.createElement("td");
+        row.total = total_cell;
         row.appendChild(total_cell);
         let del_cell = document.createElement("td");
         let del_button = document.createElement("button");
@@ -57,6 +64,7 @@ ItemGrid.prototype = {
     del_row: function(index) {
         this.table.rows[index].remove();
         this.reindex_rows(index);
+        this.calc_total();
     },
     reindex_rows: function(index=1) {
         for (let i = index; i < this.table.rows.length; i++) {
@@ -78,5 +86,16 @@ ItemGrid.prototype = {
             row.cells[4].textContent = hours.value*rate.value;
         else
             row.cells[4].textContent = "";
+        this.calc_total();
+    },
+    calc_total: function() {
+        let total = 0;
+        for (let i = 1; i < this.table.rows.length; i++) {
+            let row = this.table.rows[i];
+            let row_total = Number(row.total.textContent);
+            if (DEC_REGEX.test(row_total))
+                total += row_total
+        }
+        this.total.textContent = total;
     },
 }
