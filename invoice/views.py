@@ -98,7 +98,7 @@ def pdf(request, invoice_number):
         },
         "invoiceNumber": invoice.number,
         "createdDate": invoice.created_date.strftime(DATE_FORMAT),
-        "dueDate": invoice.due_date.strftime(DATE_FORMAT),
+        "dueDate": invoice.due_date.strftime(DATE_FORMAT) if invoice.due_date else invoice.due_date,
         "total": total,
         "logo": None,
         "items": items,

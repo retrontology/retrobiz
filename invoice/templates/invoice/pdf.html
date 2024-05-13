@@ -158,7 +158,7 @@
                                 <td>
                                     Invoice #: {{ invoiceNumber|stringformat:"05d" }}<br />
                                     Created: {{ createdDate }}<br />
-                                    {% if dueDate != "" %}
+                                    {% if dueDate %}
                                         Due: {{ dueDate }}
                                     {% endif %}
                                 </td>
