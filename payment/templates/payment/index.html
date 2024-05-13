@@ -1,9 +1,6 @@
-{% if payments %}
-    <ul>
-    {% for payment in payments %}
-        <li><a href="/payment/view/{{ payment.id }}">{{ payment.id }}: {{ payment.invoice.client.name }} - {{ payment.amount }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No payments are available.</p>
-{% endif %}
+<ul>
+{% for page_obj in page_obj %}
+    <li><a href="/payment/view/{{ payment.id }}">{{ payment.id }}: {{ payment.invoice.client.name }} - {{ payment.amount }}</a></li>
+{% endfor %}
+</ul>
+{% include "paginator.html" %}

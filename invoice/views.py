@@ -7,12 +7,21 @@ from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.template import Engine, Context
 from weasyprint import HTML
+from django.core.paginator import Paginator
 
-def index(request):
-    invoices = Invoice.objects.order_by("number")[:10]
+DEFAULT_MAX=20
+
+def index(request, page_number=1, max_items=DEFAULT_MAX):
+    invoices = Invoice.objects.order_by("number")
     for invoice in invoices:
         invoice.total = get_invoice_total(get_invoice_items(invoice))
-    context = {"invoices": invoices}
+    if request.GET.get("max"):
+        max_items = request.GET.get("max")
+    paginator = Paginator(invoices, max_items)
+    if request.GET.get("page"):
+        page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj}
     return render(request, "invoice/index.html", context)
 
 def create(request):

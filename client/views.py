@@ -2,13 +2,22 @@ from .models import Client
 from invoice.utils import *
 from invoice.models import Invoice
 from payment.models import Payment
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-def index(request):
-    clients = Client.objects.order_by("name")[:10]
-    context = {"clients": clients}
+DEFAULT_MAX=20
+
+def index(request, page_number=1, max_items=DEFAULT_MAX):
+    clients = Client.objects.order_by("name")
+    if request.GET.get("max"):
+        max_items = request.GET.get("max")
+    paginator = Paginator(clients, max_items)
+    if request.GET.get("page"):
+        page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj}
     return render(request, "client/index.html", context)
 
 def create(request):

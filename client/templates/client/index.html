@@ -1,9 +1,6 @@
-{% if clients %}
-    <ul>
-    {% for client in clients %}
-        <li><a href="/client/view/{{ client.id }}">{{ client.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No clients are available.</p>
-{% endif %}
+<ul>
+{% for client in page_obj  %}
+    <li><a href="/client/view/{{ client.id }}">{{ client.name }}</a></li>
+{% endfor %}
+</ul>
+{% include "paginator.html" %}

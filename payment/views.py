@@ -1,12 +1,21 @@
 from .models import Payment, Invoice, PAYMENT_CHOICES
 from invoice.utils import *
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-def index(request):
-    payments = Payment.objects.order_by("id")[:10]
-    context = {"payments": payments}
+DEFAULT_MAX=20
+
+def index(request, page_number=1, max_items=DEFAULT_MAX):
+    payments = Payment.objects.order_by("id")
+    if request.GET.get("max"):
+        max_items = request.GET.get("max")
+    paginator = Paginator(payments, max_items)
+    if request.GET.get("page"):
+        page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj}
     return render(request, "payment/index.html", context)
 
 def create(request):
