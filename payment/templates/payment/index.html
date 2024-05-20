@@ -8,8 +8,8 @@
                 <th>Client</th>
                 <th>Amount</th>
             </tr>
-            {% for page_obj in page_obj %}
-                <tr onclick="window.location='{% url 'payment:index' %}';">
+            {% for payment in page_obj %}
+                <tr onclick="window.location='{% url 'payment:view' payment.id %}';">
                     <td>{{ payment.id }}</td>
                     <td>{{ payment.invoice.number }}</td>
                     <td>{{ payment.invoice.client.name }}</td>
