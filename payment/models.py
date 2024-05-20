@@ -9,7 +9,9 @@ PAYMENT_CHOICES = [
 ]
 
 class Payment(models.Model):
-    amount = models.IntegerField(
+    amount = models.DecimalField(
+        max_digits=16,
+        decimal_places=2,
         blank=False,
         null=False,
     )

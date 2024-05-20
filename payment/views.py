@@ -20,6 +20,8 @@ def index(request, page_number=1, max_items=DEFAULT_MAX):
 
 def create(request):
     invoices = Invoice.objects.order_by("number")
+    for invoice in invoices:
+        invoice.total = get_invoice_total(get_invoice_items(invoice))
     services = PAYMENT_CHOICES
     context = {
         "invoices": invoices,
@@ -30,7 +32,7 @@ def create(request):
 def new(request):
     invoice = get_object_or_404(Invoice, pk=request.POST["invoice"])
     payment = Payment.objects.create(
-        amount=request.POST["amount"],
+        amount=float(request.POST["amount"]),
         transaction_id=request.POST["transaction_id"],
         service=request.POST["service"],
         invoice=invoice,

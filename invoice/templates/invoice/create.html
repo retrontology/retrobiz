@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-<script src="{% static 'invoice/items.js' %}"></script> 
 {% block content %}
+    <script src="{% static 'invoice/items.js' %}"></script> 
     <form action="{% url 'invoice:new' %}" method="post">
         {% csrf_token %}
         <fieldset>

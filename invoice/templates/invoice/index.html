@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-    <ul>
-        {% for invoice in page_obj %}
-            <li><a href="/invoice/view/{{ invoice.number }}">{{ invoice.number }}: {{ invoice.client.name }} - {{ invoice.total }}</a></li>
-        {% endfor %}
-    </ul>
+    <table>
+        <tbody>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Total</th>
+            </tr>
+            {% for invoice in page_obj %}
+            <tr onclick="window.location='{% url 'invoice:view' invoice.number %}';">
+                <td>{{ invoice.number }}</td>
+                <td>{{ invoice.created_date }}</td>
+                <td>{{ invoice.client.name }}</td>
+                <td>${{ invoice.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% include "paginator.html" %}
+    <a href="{% url 'invoice:create' %}">Create a new invoice</a>
 {% endblock %}
