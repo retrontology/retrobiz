@@ -1,19 +1,29 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         {% block title %}
             <title>Your Mom's Haus</title>
         {% endblock %}
+        <link rel="stylesheet" href="{% static 'base.css' %}">
     </head>
     <body>
-        {% block sidebar %}
-            <div class="sidebar" id="sidebar">
-                {% include "sidebar.html" %}
+        <div class="root-container" id="root-container">
+            <header class="header" id="header">
+                {% block header %}
+                {% endblock %}
+            </header>
+            <div class="body-container" id="body-container">
+                {% block sidebar %}
+                    <div class="sidebar" id="sidebar">
+                        {% include "sidebar.html" %}
+                    </div>
+                {% endblock %}
+                <div class="content" id="content"></div>
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
-        {% endblock %}
-        <div class="content" id="content"></div>
-            {% block content %}
-            {% endblock %}
         </div>
     </body>
 </html>

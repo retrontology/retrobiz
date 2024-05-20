@@ -1,0 +1,19 @@
+body {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.root-container {
+    width: 1000px;
+    display: grid;
+}
+
+.header {
+    height: 100px;
+}
+
+.body-container {
+    display: flex;
+}
