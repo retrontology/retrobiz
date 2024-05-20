@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+}
+
 body {
     width: 100%;
     height: 100%;
@@ -7,13 +11,31 @@ body {
 
 .root-container {
     width: 1000px;
-    display: grid;
+    height: 100%;
+
 }
 
 .header {
+    width: 100%;
     height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+}
+
+.sidebar {
+    width: 20%;
+    text-align: center;
+    font-size: 24px;
 }
 
 .body-container {
+    height: 100%;
+    width: 100%;
     display: flex;
+}
+
+.content {
+    display: block;
 }

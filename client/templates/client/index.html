@@ -2,8 +2,9 @@
 {% block content %}
     <ul>
         {% for client in page_obj  %}
-            <li><a href="/client/view/{{ client.id }}">{{ client.name }}</a></li>
+            <li><a href="{% url 'client:view' client.id %}">{{ client.name }}</a></li>
         {% endfor %}
     </ul>
     {% include "paginator.html" %}
+    <a href="{% url 'client:create' %}">Create a new client</a>
 {% endblock %}
