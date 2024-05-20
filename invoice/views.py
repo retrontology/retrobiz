@@ -114,4 +114,4 @@ def pdf(request, invoice_number):
     )
 
 def home(request):
-    return render(request, "sidebar.html")
+    return render(request, "base.html")
