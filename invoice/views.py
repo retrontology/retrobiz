@@ -112,3 +112,6 @@ def pdf(request, invoice_number):
             "Content-Disposition": f'attachment; filename="invoice-{invoice.number}.pdf"',
         },
     )
+
+def home(request):
+    return render(request, "sidebar.html")

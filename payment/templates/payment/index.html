@@ -1,6 +1,9 @@
-<ul>
-{% for page_obj in page_obj %}
-    <li><a href="/payment/view/{{ payment.id }}">{{ payment.id }}: {{ payment.invoice.client.name }} - {{ payment.amount }}</a></li>
-{% endfor %}
-</ul>
-{% include "paginator.html" %}
+{% extends "base.html" %}
+{% block content %}
+    <ul>
+        {% for page_obj in page_obj %}
+            <li><a href="/payment/view/{{ payment.id }}">{{ payment.id }}: {{ payment.invoice.client.name }} - {{ payment.amount }}</a></li>
+        {% endfor %}
+    </ul>
+    {% include "paginator.html" %}
+{% endblock %}

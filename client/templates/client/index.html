@@ -1,6 +1,9 @@
-<ul>
-{% for client in page_obj  %}
-    <li><a href="/client/view/{{ client.id }}">{{ client.name }}</a></li>
-{% endfor %}
-</ul>
-{% include "paginator.html" %}
+{% extends "base.html" %}
+{% block content %}
+    <ul>
+        {% for client in page_obj  %}
+            <li><a href="/client/view/{{ client.id }}">{{ client.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% include "paginator.html" %}
+{% endblock %}

@@ -1,22 +1,25 @@
-<form action="{% url 'payment:new' %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>Create a new payment.</h1></legend>
-        <label for="invoice">Choose an invoice:</label>
-        <select id="invoice" name="invoice">
-            {% for invoice in invoices %}
-                <option value={{ invoice.number }}>{{ invoice.number }}: {{ invoice.client.name }} - ${{ invoice.total }}</option>
-            {% endfor %}
-        </select><br>
-        <label for="amount">Amount</label>
-        <input type="number" id="amount" name="amount"><br>
-        <label for="transaction_id">Transaction ID</label>
-        <input type="text" id="transaction_id" name="transaction_id"><br>
-        <select id="service" name="service">
-            {% for service in services %}
-                <option value={{ service.0 }}>{{ service.1 }}</option>
-            {% endfor %}
-        </select><br>
-    </fieldset>
-    <input type="submit" value="Submit">
-</form>
+{% extends "base.html" %}
+{% block content %}
+    <form action="{% url 'payment:new' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>Create a new payment.</h1></legend>
+            <label for="invoice">Choose an invoice:</label>
+            <select id="invoice" name="invoice">
+                {% for invoice in invoices %}
+                    <option value={{ invoice.number }}>{{ invoice.number }}: {{ invoice.client.name }} - ${{ invoice.total }}</option>
+                {% endfor %}
+            </select><br>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount"><br>
+            <label for="transaction_id">Transaction ID</label>
+            <input type="text" id="transaction_id" name="transaction_id"><br>
+            <select id="service" name="service">
+                {% for service in services %}
+                    <option value={{ service.0 }}>{{ service.1 }}</option>
+                {% endfor %}
+            </select><br>
+        </fieldset>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

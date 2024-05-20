@@ -1,27 +1,30 @@
-<label for="name">Client Name</label>
-<a id="name" name="name">{{ client.name }}</a><br>
-<label for="address_line1">Address Line 1</label>
-<a id="address_line1" name="address_line1">{{ client.address_line1 }}</a><br>
-<label for="address_line2">Address Line 2</label>
-<a id="address_line2" name="address_line2">{{ client.address_line2 }}</a><br>
-<label for="person_of_contact">Person of Contact</label>
-<a id="person_of_contact" name="person_of_contact">{{ client.person_of_contact }}</a><br>
-<label for="phone">Phone</label>
-<a id="phone" name="phone">{{ client.phone }}</a><br>
-<label for="email">Email</label>
-<a id="email" name="email">{{ client.email }}</a><br>
-<label for="billed">Total Amount Billed</label>
-<a id="billed" name="billed">${{ billed }}</a><br>
-<label for="paid">Total Amount Paid</label>
-<a id="paid" name="paid">${{ paid }}</a><br>
-<label for="owed">Total Amount Owed</label>
-<a id="owed" name="owed">${{ owed }}</a><br>
-{% if invoices %}
-    <br>
-    <a>Invoices</a>
-    <ul>
-    {% for invoice in invoices %}
-        <li><a href="{% url 'invoice:view' invoice.number %}">{{ invoice.number }}: ${{ invoice.total }}</a></li>
-    {% endfor %}
-    </ul>
-{% endif %}
+{% extends "base.html" %}
+{% block content %}
+    <label for="name">Client Name</label>
+    <a id="name" name="name">{{ client.name }}</a><br>
+    <label for="address_line1">Address Line 1</label>
+    <a id="address_line1" name="address_line1">{{ client.address_line1 }}</a><br>
+    <label for="address_line2">Address Line 2</label>
+    <a id="address_line2" name="address_line2">{{ client.address_line2 }}</a><br>
+    <label for="person_of_contact">Person of Contact</label>
+    <a id="person_of_contact" name="person_of_contact">{{ client.person_of_contact }}</a><br>
+    <label for="phone">Phone</label>
+    <a id="phone" name="phone">{{ client.phone }}</a><br>
+    <label for="email">Email</label>
+    <a id="email" name="email">{{ client.email }}</a><br>
+    <label for="billed">Total Amount Billed</label>
+    <a id="billed" name="billed">${{ billed }}</a><br>
+    <label for="paid">Total Amount Paid</label>
+    <a id="paid" name="paid">${{ paid }}</a><br>
+    <label for="owed">Total Amount Owed</label>
+    <a id="owed" name="owed">${{ owed }}</a><br>
+    {% if invoices %}
+        <br>
+        <a>Invoices</a>
+        <ul>
+        {% for invoice in invoices %}
+            <li><a href="{% url 'invoice:view' invoice.number %}">{{ invoice.number }}: ${{ invoice.total }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

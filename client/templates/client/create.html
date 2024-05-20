@@ -1,19 +1,22 @@
-<form action="{% url 'client:new' %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>Add a new client.</h1></legend>
-        <label for="name">Client Name</label>
-        <input type="text" id="name" name="name"><br>
-        <label for="address_line1">Address Line 1</label>
-        <input type="text" id="address_line1" name="address_line1"><br>
-        <label for="address_line2">Address Line 2</label>
-        <input type="text" id="address_line2" name="address_line2"><br>
-        <label for="person_of_contact">Person of Contact</label>
-        <input type="text" id="person_of_contact" name="person_of_contact"><br>
-        <label for="phone">Phone</label>
-        <input type="text" id="phone" name="phone"><br>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email"><br>
-    </fieldset>
-    <input type="submit" value="Submit">
-</form>
+{% extends "base.html" %}
+{% block content %}
+    <form action="{% url 'client:new' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>Add a new client.</h1></legend>
+            <label for="name">Client Name</label>
+            <input type="text" id="name" name="name"><br>
+            <label for="address_line1">Address Line 1</label>
+            <input type="text" id="address_line1" name="address_line1"><br>
+            <label for="address_line2">Address Line 2</label>
+            <input type="text" id="address_line2" name="address_line2"><br>
+            <label for="person_of_contact">Person of Contact</label>
+            <input type="text" id="person_of_contact" name="person_of_contact"><br>
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone"><br>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email"><br>
+        </fieldset>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

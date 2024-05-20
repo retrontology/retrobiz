@@ -1,26 +1,29 @@
+{% extends "base.html" %}
 {% load static %}
 <script src="{% static 'invoice/items.js' %}"></script> 
-<form action="{% url 'invoice:new' %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>Create a new invoice.</h1></legend>
-        <label for="client">Choose a client:</label>
-        <select id="client" name="client">
-            {% for client in clients %}
-                <option value={{ client.id }}>{{ client.name }}</option>
-            {% endfor %}
-        </select><br>
-        <label for="due_date">Due Date</label>
-        <input type="date" id="due_date" name="due_date"><br>
-    </fieldset>
-    <br>
-    <fieldset>
-        <legend><h1>Items</h1></legend>
-        <table id="items" name="items">
-        </table>
-    </fieldset>
-    <input type="submit" value="Submit">
-</form>
-<script>
-    let items = new ItemGrid('items')
-</script>
+{% block content %}
+    <form action="{% url 'invoice:new' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>Create a new invoice.</h1></legend>
+            <label for="client">Choose a client:</label>
+            <select id="client" name="client">
+                {% for client in clients %}
+                    <option value={{ client.id }}>{{ client.name }}</option>
+                {% endfor %}
+            </select><br>
+            <label for="due_date">Due Date</label>
+            <input type="date" id="due_date" name="due_date"><br>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend><h1>Items</h1></legend>
+            <table id="items" name="items">
+            </table>
+        </fieldset>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        let items = new ItemGrid('items')
+    </script>
+{% endblock %}
