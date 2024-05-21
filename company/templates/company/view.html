@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <table>
+        <tbody>
+            <tr>
+                <th>Company Name</th>
+                <td>{{ company.name }}</td>
+            </tr>
+            <tr>
+                <th>Address Line 1</th>
+                <td>{{ company.address_line1 }}</td>
+            </tr>
+            <tr>
+                <th>Address Line 2</th>
+                <td>{{ company.address_line2 }}</td>
+            </tr>
+            <tr>
+                <th>Company Owner</th>
+                <td>{{ company.owner }}</td>
+            </tr>
+            <tr>
+                <th>Company Phone</th>
+                <td>{{ company.phone }}</td>
+            </tr>
+            <tr>
+                <th>Company Email</th>
+                <td>{{ company.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{% url 'company:edit' %}">Edit Company</a>
+{% endblock %}

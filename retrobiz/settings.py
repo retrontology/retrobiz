@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'invoice.apps.InvoiceConfig',
     'client.apps.ClientConfig',
     'payment.apps.PaymentConfig',
+    'company.apps.CompanyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

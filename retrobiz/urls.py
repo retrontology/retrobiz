@@ -23,5 +23,6 @@ urlpatterns = [
     path("invoice/", include("invoice.urls")),
     path("client/", include("client.urls")),
     path("payment/", include("payment.urls")),
-    path("", invoice.views.home)
+    path("", invoice.views.home),
+    path("company/", include("company.urls"))
 ]

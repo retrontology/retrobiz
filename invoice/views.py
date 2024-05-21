@@ -1,4 +1,5 @@
 from .models import Invoice, Client, Item
+from company.models import get_company
 from .utils import *
 from payment.models import Payment
 from django.http import HttpResponse, HttpResponseRedirect
@@ -76,17 +77,18 @@ def view(request, invoice_number):
 def pdf(request, invoice_number):
     invoice = get_object_or_404(Invoice, number=invoice_number)
     client = invoice.client
+    company = get_company()
     items = get_invoice_items(invoice)
     total = get_invoice_total(items)
     template = Engine.get_default().get_template("invoice/pdf.html")
     context = Context({
         "sender": {
-            "name": "Test Ease",
+            "name": company.name,
             "addr": {
-                "line1": "123 Alphabet Street",
-                "line2": "Brouhaha, NJ, 42069",
+                "line1": company.address_line1,
+                "line2": company.address_line2,
             },
-            "email": "broogle@groogle.com",
+            "email": company.email,
         },
         "receiver": {
             "name": client.name,
