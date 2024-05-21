@@ -1,30 +1,63 @@
 {% extends "base.html" %}
 {% block content %}
-    <label for="name">Client Name</label>
-    <a id="name" name="name">{{ client.name }}</a><br>
-    <label for="address_line1">Address Line 1</label>
-    <a id="address_line1" name="address_line1">{{ client.address_line1 }}</a><br>
-    <label for="address_line2">Address Line 2</label>
-    <a id="address_line2" name="address_line2">{{ client.address_line2 }}</a><br>
-    <label for="person_of_contact">Person of Contact</label>
-    <a id="person_of_contact" name="person_of_contact">{{ client.person_of_contact }}</a><br>
-    <label for="phone">Phone</label>
-    <a id="phone" name="phone">{{ client.phone }}</a><br>
-    <label for="email">Email</label>
-    <a id="email" name="email">{{ client.email }}</a><br>
-    <label for="billed">Total Amount Billed</label>
-    <a id="billed" name="billed">${{ billed }}</a><br>
-    <label for="paid">Total Amount Paid</label>
-    <a id="paid" name="paid">${{ paid }}</a><br>
-    <label for="owed">Total Amount Owed</label>
-    <a id="owed" name="owed">${{ owed }}</a><br>
+    <table>
+        <tbody>
+            <tr>
+                <th>Client Name</th>
+                <td>{{ client.name }}</td>
+            </tr>
+            <tr>
+                <th>Address Line 1</th>
+                <td>{{ client.address_line1 }}</td>
+            </tr>
+            <tr>
+                <th>Address Line 2</th>
+                <td>{{ client.address_line2 }}</td>
+            </tr>
+            <tr>
+                <th>Person of Contact</th>
+                <td>{{ client.person_of_contact }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ client.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount Billed</th>
+                <td>${{ billed }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount Paid</th>
+                <td>${{ paid }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount Owed</th>
+                <td>${{ owed }}</td>
+            </tr>
+        </tbody>
+    </table>
     {% if invoices %}
         <br>
-        <a>Invoices</a>
-        <ul>
-        {% for invoice in invoices %}
-            <li><a href="{% url 'invoice:view' invoice.number %}">{{ invoice.number }}: ${{ invoice.total }}</a></li>
-        {% endfor %}
-        </ul>
+        <table>
+            <caption>Invoices</caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                    <tr class="clickable" onclick="window.location='{% url 'invoice:view' invoice.number %}';">
+                        <td>{{ invoice.number }}</td>
+                        <td>${{ invoice.total }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% endif %}
 {% endblock %}

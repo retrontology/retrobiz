@@ -1,15 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-    <label for="id">Payment ID</label>
-    <a id="id" name="id">{{ payment.id }}</a><br>
-    <label for="invoice">Invoice</label>
-    <a href="{% url 'invoice:view' payment.invoice.number %}" id="invoice" name="invoice">{{ payment.invoice.number }}: {{ payment.invoice.client.name }} - ${{ payment.invoice.total }}</a><br>
-    <label for="amount">Total Amount</label>
-    <a id="amount" name="amount">${{ payment.amount }}</a><br>
-    <label for="transaction_id">Transaction ID</label>
-    <a id="transaction_id" name="transaction_id">{{ payment.transaction_id }}</a><br>
-    <label for="service">Service</label>
-    <a id="service" name="service">{{ payment.service }}</a><br>
-    <label for="timestamp">Timestamp</label>
-    <a id="timestamp" name="timestamp">{{ payment.timestamp }}</a><br>
+    <table>
+        <tbody>
+            <tr>
+                <th>Payment ID</th>
+                <td>{{ payment.id }}</td>
+            </tr>
+            <tr class="clickable" onclick="window.location='{% url 'invoice:view' payment.invoice.number %}';">
+                <th>Invoice</th>
+                <td>{{ payment.invoice.number }}: {{ payment.invoice.client.name }} - ${{ payment.invoice.total }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>${{ payment.amount }}</td>
+            </tr>
+            <tr>
+                <th>Transaction ID</th>
+                <td>{{ payment.transaction_id }}</td>
+            </tr>
+            <tr>
+                <th>Service</th>
+                <td>{{ payment.service }}</td>
+            </tr>
+            <tr>
+                <th>Timestamp</th>
+                <td>{{ payment.timestamp }}</td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}

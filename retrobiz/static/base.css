@@ -12,7 +12,6 @@ body {
 .root-container {
     width: 1000px;
     height: 100%;
-
 }
 
 .header {
@@ -38,4 +37,8 @@ body {
 
 .content {
     display: block;
+}
+
+.clickable {
+    cursor: pointer;
 }

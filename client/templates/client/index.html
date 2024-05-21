@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
     <table>
-        <tbody>
+        <caption>Clients</caption>
+        <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
@@ -9,8 +10,10 @@
                 <th>Phone</th>
                 <th>Email</th>
             </tr>
+        </thead>
+        <tbody>
             {% for client in page_obj  %}
-                <tr onclick="window.location='{% url 'client:view' client.id %}';">
+                <tr class="clickable" onclick="window.location='{% url 'client:view' client.id %}';">
                     <td>{{ client.id }}</td>
                     <td>{{ client.name }}</td>
                     <td>{{ client.address_line1 }}{% if client.address_line2 %}, {{ client.address_line2 }}{% endif %}</td>

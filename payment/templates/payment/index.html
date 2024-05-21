@@ -9,7 +9,7 @@
                 <th>Amount</th>
             </tr>
             {% for payment in page_obj %}
-                <tr onclick="window.location='{% url 'payment:view' payment.id %}';">
+                <tr class="clickable" onclick="window.location='{% url 'payment:view' payment.id %}';">
                     <td>{{ payment.id }}</td>
                     <td>{{ payment.invoice.number }}</td>
                     <td>{{ payment.invoice.client.name }}</td>
