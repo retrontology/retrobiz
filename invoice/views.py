@@ -116,4 +116,7 @@ def pdf(request, invoice_number):
     )
 
 def home(request):
-    return render(request, "base.html")
+    if get_company():
+        return render(request, "base.html")
+    else:
+        return HttpResponseRedirect(reverse("company:edit"))
